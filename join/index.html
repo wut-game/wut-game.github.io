@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wut?! – Entra nella mia partita</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;box-sizing:border-box;background:linear-gradient(180deg,#491D99,#2A0E5C);color:#fff;font-family:Figtree,system-ui,sans-serif;text-align:center}
+h1{margin:0;font-size:34px}
+.code{font-size:28px;font-weight:700;letter-spacing:4px}
+a.btn{display:block;width:260px;padding:16px;border-radius:14px;background:#FF6261;box-shadow:0 6px 0 #C43F32;color:#fff;font-weight:700;text-decoration:none}
+p{margin:0;color:rgba(255,255,255,.75)}
+</style></head><body>
+<h1>Wut?!</h1>
+<p>Sei stato invitato a una partita</p>
+<div class="code" id="code"></div>
+<p>Installa l'app e riapri questo link per entrare.</p>
+<a class="btn" id="ios" href="https://apps.apple.com/app/id6814432600">Scarica su App Store</a>
+<a class="btn" id="and" href="https://play.google.com/store/apps/details?id=com.pierpaolosabato.wutgame">Scarica su Google Play</a>
+<script>
+var c=new URLSearchParams(location.search).get('c')||'';
+document.getElementById('code').textContent=c.toUpperCase();
+var ua=navigator.userAgent;
+if(/iPhone|iPad|iPod/.test(ua)){document.getElementById('and').style.display='none'}
+else if(/Android/.test(ua)){document.getElementById('ios').style.display='none'}
+</script></body></html>
