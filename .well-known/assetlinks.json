@@ -1,1 +1,1 @@
-[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"com.pierpaolosabato.wutgame","sha256_cert_fingerprints":["INCOLLA_QUI_SHA256"]}}]
+[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"com.pierpaolosabato.wutgame","sha256_cert_fingerprints":["36:BE:C2:C9:46:53:29:FF:A5:AA:F9:97:E9:A2:8F:67:9E:4A:80:1B:37:C9:A5:22:DD:77:39:5E:6C:00:F7:71"]}}]
