@@ -1,23 +1,91 @@
 <!doctype html>
-<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wut?! – Entra nella mia partita</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wut?! – Join my game</title>
+<meta property="og:title" content="Wut?! – Join my game">
+<meta property="og:description" content="The multiplayer quiz to play with friends.">
+<meta name="description" content="The multiplayer quiz to play with friends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;box-sizing:border-box;background:linear-gradient(180deg,#491D99,#2A0E5C);color:#fff;font-family:Figtree,system-ui,sans-serif;text-align:center}
-h1{margin:0;font-size:34px}
-.code{font-size:28px;font-weight:700;letter-spacing:4px}
-a.btn{display:block;width:260px;padding:16px;border-radius:14px;background:#FF6261;box-shadow:0 6px 0 #C43F32;color:#fff;font-weight:700;text-decoration:none}
-p{margin:0;color:rgba(255,255,255,.75)}
-</style></head><body>
-<h1>Wut?!</h1>
-<p>Sei stato invitato a una partita</p>
-<div class="code" id="code"></div>
-<p>Installa l'app e riapri questo link per entrare.</p>
-<a class="btn" id="ios" href="https://apps.apple.com/app/id6814432600">Scarica su App Store</a>
-<a class="btn" id="and" href="https://play.google.com/store/apps/details?id=com.pierpaolosabato.wutgame">Scarica su Google Play</a>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;justify-content:center;background:linear-gradient(180deg,#491D99,#2A0E5C);color:#fff;font-family:Figtree,system-ui,sans-serif;overflow-x:hidden}
+.wrap{position:relative;width:100%;max-width:420px;min-height:100vh;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center}
+.logo{font-size:64px;font-weight:800;letter-spacing:-1px;line-height:64px}
+.logo span{color:#FF6261}
+.tag{margin-top:10px;font-size:15px;color:rgba(255,255,255,.7);text-align:center}
+.card{width:100%;margin-top:40px;padding:24px 20px;border-radius:20px;background:#2E1665;text-align:center}
+.card .lbl{font-size:14px;color:rgba(255,255,255,.7)}
+.code{display:inline-block;margin-top:14px;padding:10px 20px;border-radius:14px;background:rgba(255,255,255,.08)}
+.code small{display:block;font-size:12px;color:rgba(255,255,255,.6)}
+.code b{display:block;font-size:32px;line-height:40px;letter-spacing:5px;font-weight:700}
+.steps{width:100%;margin-top:28px;display:flex;flex-direction:column;gap:14px}
+.step{display:flex;align-items:center;gap:14px;font-size:15px}
+.n{flex:none;width:32px;height:32px;border-radius:16px;background:#5C2AAE;display:flex;align-items:center;justify-content:center;font-weight:700}
+.spacer{flex-grow:1;min-height:32px}
+.dl{font-size:14px;font-weight:600;margin-bottom:14px}
+.stores{display:flex;justify-content:center;gap:40px}
+.stores a{display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;text-decoration:none;font-size:13px;font-weight:600}
+.tile{width:80px;height:80px;border-radius:20px;background:#2E1665;border:1.5px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center}
+.note{margin-top:18px;font-size:12px;color:rgba(255,255,255,.5);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">Wut<span>?!</span></div>
+  <div class="tag" data-i="tag"></div>
+
+  <div class="card" id="card">
+    <div class="lbl" data-i="invited"></div>
+    <div class="code"><small data-i="room"></small><b id="code"></b></div>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div data-i="s1"></div></div>
+    <div class="step"><div class="n">2</div><div data-i="s2"></div></div>
+    <div class="step"><div class="n">3</div><div data-i="s3"></div></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="dl" data-i="dl"></div>
+  <div class="stores">
+    <a href="https://apps.apple.com/app/id6814432600" aria-label="App Store">
+      <div class="tile"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></div>
+      App Store
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.pierpaolosabato.wutgame" aria-label="Google Play">
+      <div class="tile"><svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><polygon points="4.6,2.6 13.2,12 4.6,21.4" fill="#00D7FE"/><polygon points="4.6,2.6 16.2,9 13.2,12" fill="#00F076"/><polygon points="16.2,9 20.2,12 16.2,15 13.2,12" fill="#FFCE00"/><polygon points="4.6,21.4 13.2,12 16.2,15" fill="#FF3A44"/></svg></div>
+      Google Play
+    </a>
+  </div>
+  <div class="note" data-i="note"></div>
+</div>
 <script>
-var c=new URLSearchParams(location.search).get('c')||'';
-document.getElementById('code').textContent=c.toUpperCase();
-var ua=navigator.userAgent;
-if(/iPhone|iPad|iPod/.test(ua)){document.getElementById('and').style.display='none'}
-else if(/Android/.test(ua)){document.getElementById('ios').style.display='none'}
-</script></body></html>
+var T={
+ en:{tag:"The multiplayer quiz to play with friends",invited:"A friend invited you to play",room:"Room code",s1:"Download Wut?! for free",s2:"Come back to this link",s3:"Jump straight into the game",dl:"Get the app",note:"Already have the app? Reopen the link from your chats.",title:"Wut?! – Join my game"},
+ it:{tag:"Il quiz multiplayer da giocare con gli amici",invited:"Un amico ti ha invitato a giocare",room:"Codice stanza",s1:"Scarica Wut?! gratis",s2:"Torna su questo link",s3:"Entri direttamente in partita",dl:"Scarica l'app",note:"Hai già l'app? Riapri il link dalle tue chat.",title:"Wut?! – Entra nella mia partita"},
+ fr:{tag:"Le quiz multijoueur à jouer entre amis",invited:"Un ami t'invite à jouer",room:"Code de la salle",s1:"Télécharge Wut?! gratuitement",s2:"Reviens sur ce lien",s3:"Tu entres directement dans la partie",dl:"Télécharger l'app",note:"Tu as déjà l'app ? Rouvre le lien depuis tes discussions.",title:"Wut?! – Rejoins ma partie"},
+ de:{tag:"Das Multiplayer-Quiz für dich und deine Freunde",invited:"Ein Freund hat dich zum Spielen eingeladen",room:"Raumcode",s1:"Lade Wut?! kostenlos herunter",s2:"Öffne diesen Link erneut",s3:"Du landest direkt im Spiel",dl:"App herunterladen",note:"App schon installiert? Öffne den Link erneut in deinen Chats.",title:"Wut?! – Tritt meinem Spiel bei"},
+ pt:{tag:"O quiz multijogador para jogar com amigos",invited:"Um amigo convidou-te para jogar",room:"Código da sala",s1:"Descarrega o Wut?! gratuitamente",s2:"Volta a abrir esta ligação",s3:"Entras diretamente no jogo",dl:"Descarregar a app",note:"Já tens a app? Volta a abrir a ligação nas tuas conversas.",title:"Wut?! – Entra no meu jogo"},
+ es:{tag:"El quiz multijugador para jugar con amigos",invited:"Un amigo te ha invitado a jugar",room:"Código de sala",s1:"Descarga Wut?! gratis",s2:"Vuelve a este enlace",s3:"Entras directamente en la partida",dl:"Descargar la app",note:"¿Ya tienes la app? Vuelve a abrir el enlace desde tus chats.",title:"Wut?! – Únete a mi partida"}
+};
+function pick(list){
+  for(var i=0;i<list.length;i++){
+    var l=String(list[i]||'').toLowerCase().slice(0,2);
+    if(T[l])return l;
+  }
+  return 'en';
+}
+var lang=pick(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language]);
+var t=T[lang];
+document.documentElement.lang=lang;
+document.title=t.title;
+document.querySelectorAll('[data-i]').forEach(function(e){e.textContent=t[e.getAttribute('data-i')]});
+var c=(new URLSearchParams(location.search).get('c')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,12);
+if(c){document.getElementById('code').textContent=c}else{document.getElementById('card').style.display='none'}
+</script>
+</body>
+</html>
