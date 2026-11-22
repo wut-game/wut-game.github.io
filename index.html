@@ -1,1 +1,137 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wut?!</title></head><body style="margin:0;font-family:sans-serif;background:#491D99;color:#fff;text-align:center;padding:48px 24px"><h1>Wut?!</h1><p>Il quiz multiplayer da giocare con gli amici.</p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wut?! – The multiplayer quiz</title>
+<meta name="description" content="The multiplayer quiz to play with friends.">
+<meta property="og:title" content="Wut?! – The multiplayer quiz">
+<meta property="og:description" content="The multiplayer quiz to play with friends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;justify-content:center;background:linear-gradient(180deg,#491D99,#2A0E5C);color:#fff;font-family:Figtree,system-ui,sans-serif;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.wrap{width:100%;max-width:420px;min-height:100vh;padding:72px 24px 40px;display:flex;flex-direction:column;align-items:center}
+.logo{width:120px;height:120px;border-radius:30px;background:#5C2AAE;border:2px solid rgba(255,255,255,.3);box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:40px;font-weight:800;letter-spacing:-1px}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.logo span,h1 span{color:#FF6261}
+h1{margin:28px 0 12px;font-size:34px;font-weight:800;letter-spacing:-.5px}
+.desc{max-width:320px;margin:0;font-size:16px;line-height:24px;color:rgba(255,255,255,.8);text-align:center}
+.get{margin:40px 0 16px;font-size:14px;font-weight:600}
+.tiles{display:flex;gap:20px;justify-content:center}
+.tile{width:150px;height:150px;border-radius:24px;background:#2E1665;border:1.5px solid rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:0 10px;text-align:center;font-size:15px;font-weight:700;line-height:20px}
+.tile:hover{background:#38197a}
+.hidden{display:none!important}
+.bar{width:100%;display:flex;align-items:center;height:44px}
+.back{flex:none;width:36px;height:36px;border-radius:18px;background:#2E1665;display:flex;align-items:center;justify-content:center}
+.bar .t{flex-grow:1;text-align:center;font-size:16px;font-weight:600;margin-right:36px}
+.intro{margin:14px 0 18px;font-size:14px;line-height:20px;color:rgba(255,255,255,.75);text-align:center}
+.card{width:100%;background:#2E1665;border-radius:20px;padding:16px;margin-bottom:14px}
+.head{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:700}
+.n{flex:none;width:28px;height:28px;border-radius:14px;background:#5C2AAE;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.demo{position:relative;height:150px;border-radius:14px;background:#F4F4F6;overflow:hidden;color:#1D1D22;margin-top:12px}
+.demo .top{height:22px;background:#E1E1E6;display:flex;align-items:center;gap:4px;padding:0 10px}
+.demo .top i{width:6px;height:6px;border-radius:3px;background:#B5B5BD}
+.demo .g{position:absolute;left:14px;top:40px;font-size:15px;font-weight:700}
+.demo .l{position:absolute;left:14px;height:8px;border-radius:4px;background:#D5D5DB}
+.demo .btnx{position:absolute;right:14px;top:34px;min-width:108px;max-width:150px;height:34px;padding:0 10px;border-radius:8px;border:1.5px solid #2F6FED;background:#fff;color:#2F6FED;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:14px;animation:btn 3.6s ease-in-out infinite}
+.demo .ring,.demo .finger{position:absolute;right:54px;top:36px;width:28px;height:28px;border-radius:14px}
+.demo .ring{background:rgba(47,111,237,.5);animation:ring 3.6s ease-out infinite}
+.demo .finger{background:rgba(29,29,34,.55);border:2px solid #fff;animation:finger 3.6s ease-in-out infinite}
+.cap{margin:10px 0 12px;font-size:12px;line-height:16px;color:rgba(255,255,255,.7);text-align:center}
+.txt{margin:10px 0 14px;font-size:13px;line-height:18px;color:rgba(255,255,255,.75)}
+.b1{display:block;padding:13px;border-radius:14px;border:1.5px solid rgba(255,255,255,.35);font-size:15px;font-weight:700;text-align:center}
+.b2{display:block;padding:16px;border-radius:14px;background:#FF6261;box-shadow:0 6px 0 #C43F32;font-size:15px;font-weight:700;text-align:center}
+.warn{margin-top:22px;padding:12px 14px;border-radius:12px;background:rgba(255,90,90,.12);border:1px solid rgba(255,90,90,.5);color:#FF7A7A;font-size:13px;line-height:18px;font-weight:600}
+.warn div+div{margin-top:6px}
+@keyframes finger{0%{transform:translate(-44px,64px);opacity:0}15%{opacity:1}45%{transform:translate(0,0);opacity:1}52%{transform:scale(.8)}60%{transform:scale(1)}85%{opacity:1}100%{transform:translate(-44px,64px);opacity:0}}
+@keyframes ring{0%,50%{transform:scale(.3);opacity:0}54%{opacity:.8}82%,100%{transform:scale(2.4);opacity:0}}
+@keyframes btn{0%,50%{background:#fff;color:#2F6FED}54%,80%{background:#2F6FED;color:#fff}100%{background:#fff;color:#2F6FED}}
+@media (prefers-reduced-motion:reduce){.demo .btnx,.demo .ring,.demo .finger{animation:none}.demo .ring{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="home">
+  <div class="logo" id="logo"><img src="logo.png" alt="Wut?!" onerror="this.parentNode.innerHTML='Wut<span>?!</span>'"></div>
+  <h1>Wut<span>?!</span></h1>
+  <p class="desc" data-i="desc"></p>
+  <div class="get" data-i="get"></div>
+  <div class="tiles">
+    <a class="tile" href="https://apps.apple.com/app/id6814432600" target="_blank" rel="noopener">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+      <span data-i="apple"></span>
+    </a>
+    <a class="tile" href="#android">
+      <svg width="52" height="52" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15a7 7 0 0 1 14 0z" fill="#3DDC84"/><path d="M8 6 6.6 3.8M16 6l1.4-2.2" stroke="#3DDC84" stroke-width="1.4" stroke-linecap="round"/><circle cx="9.4" cy="12" r="1" fill="#2E1665"/><circle cx="14.6" cy="12" r="1" fill="#2E1665"/></svg>
+      <span data-i="android"></span>
+    </a>
+  </div>
+</div>
+
+<div class="wrap hidden" id="guide" style="padding-top:59px">
+  <div class="bar">
+    <a class="back" href="#" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg></a>
+    <div class="t" data-i="gTitle"></div>
+  </div>
+  <p class="intro" data-i="gIntro"></p>
+
+  <div class="card">
+    <div class="head"><div class="n">1</div><div data-i="s1"></div></div>
+    <div class="demo" aria-hidden="true">
+      <div class="top"><i></i><i></i><i></i></div>
+      <div class="g">ps-androidtesters</div>
+      <div class="l" style="top:62px;width:110px"></div>
+      <div class="l" style="top:80px;width:80px"></div>
+      <div class="l" style="top:112px;left:14px;right:14px;height:1px"></div>
+      <div class="btnx" id="joinLbl"></div>
+      <div class="ring"></div>
+      <div class="finger"></div>
+    </div>
+    <div class="cap" id="cap"></div>
+    <a class="b1" href="https://groups.google.com/g/ps-androidtesters" target="_blank" rel="noopener" data-i="openGroup"></a>
+  </div>
+
+  <div class="card">
+    <div class="head"><div class="n">2</div><div data-i="s2"></div></div>
+    <div class="txt" data-i="s2t"></div>
+    <a class="b2" href="https://play.google.com/store/apps/details?id=com.pierpaolosabato.wutgame" target="_blank" rel="noopener" data-i="openPlay"></a>
+    <div class="warn"><div data-i="w1"></div><div data-i="w2"></div></div>
+  </div>
+</div>
+
+<script>
+var T={
+ en:{title:"Wut?! – The multiplayer quiz",desc:"The multiplayer quiz to play with friends. Create a room, invite your friends and compete in real time, even with voice chat.",get:"Get the app",apple:"Download for Apple",android:"Download for Android",gTitle:"Install on Android",gIntro:"Wut?! is in testing on Google Play. Just two steps.",s1:"Join the group",join:"Join group",cap:"Tap “{b}” next to the group name.",openGroup:"Open the group",s2:"Download the game",s2t:"After joining, open Google Play and install Wut?!.",openPlay:"Open on Google Play",w1:"You must use the same email address on Google Play and in the group.",w2:"If Google Play says the app isn't available, wait a few minutes after joining."},
+ it:{title:"Wut?! – Il quiz multiplayer",desc:"Il quiz multiplayer da giocare con gli amici. Crea una stanza, invita i tuoi amici e sfidatevi in tempo reale, anche con la chat vocale.",get:"Scarica l'app",apple:"Scarica per Apple",android:"Scarica per Android",gTitle:"Installa su Android",gIntro:"Wut?! è in fase di test su Google Play. Bastano due passaggi.",s1:"Iscriviti al gruppo",join:"Partecipa",cap:"Tocca «{b}» accanto al nome del gruppo.",openGroup:"Apri il gruppo",s2:"Scarica il gioco",s2t:"Dopo l'iscrizione apri Google Play e installa Wut?!.",openPlay:"Apri su Google Play",w1:"Devi usare lo stesso indirizzo email su Google Play e sul gruppo.",w2:"Se Google Play dice che l'app non è disponibile, aspetta qualche minuto dopo l'iscrizione."},
+ fr:{title:"Wut?! – Le quiz multijoueur",desc:"Le quiz multijoueur à jouer entre amis. Crée une salle, invite tes amis et affrontez-vous en temps réel, même avec le chat vocal.",get:"Télécharger l'app",apple:"Télécharger pour Apple",android:"Télécharger pour Android",gTitle:"Installer sur Android",gIntro:"Wut?! est en phase de test sur Google Play. Deux étapes suffisent.",s1:"Rejoins le groupe",join:"Rejoindre le groupe",cap:"Touche « {b} » à côté du nom du groupe.",openGroup:"Ouvrir le groupe",s2:"Télécharge le jeu",s2t:"Après l'inscription, ouvre Google Play et installe Wut?!.",openPlay:"Ouvrir sur Google Play",w1:"Tu dois utiliser la même adresse e-mail sur Google Play et pour le groupe.",w2:"Si Google Play indique que l'app n'est pas disponible, attends quelques minutes après l'inscription."},
+ de:{title:"Wut?! – Das Multiplayer-Quiz",desc:"Das Multiplayer-Quiz für dich und deine Freunde. Erstelle einen Raum, lade deine Freunde ein und tretet in Echtzeit gegeneinander an, sogar mit Sprachchat.",get:"App herunterladen",apple:"Für Apple herunterladen",android:"Für Android herunterladen",gTitle:"Auf Android installieren",gIntro:"Wut?! befindet sich auf Google Play in der Testphase. Es sind nur zwei Schritte nötig.",s1:"Tritt der Gruppe bei",join:"Gruppe beitreten",cap:"Tippe auf „{b}“ neben dem Gruppennamen.",openGroup:"Gruppe öffnen",s2:"Lade das Spiel herunter",s2t:"Öffne nach dem Beitritt Google Play und installiere Wut?!.",openPlay:"Auf Google Play öffnen",w1:"Du musst bei Google Play und in der Gruppe dieselbe E-Mail-Adresse verwenden.",w2:"Wenn Google Play meldet, dass die App nicht verfügbar ist, warte nach dem Beitritt ein paar Minuten."},
+ pt:{title:"Wut?! – O quiz multijogador",desc:"O quiz multijogador para jogar com amigos. Cria uma sala, convida os teus amigos e desafiem-se em tempo real, até com chat de voz.",get:"Descarregar a app",apple:"Descarregar para Apple",android:"Descarregar para Android",gTitle:"Instalar no Android",gIntro:"O Wut?! está em fase de teste no Google Play. Bastam dois passos.",s1:"Junta-te ao grupo",join:"Participar",cap:"Toca em «{b}» junto ao nome do grupo.",openGroup:"Abrir o grupo",s2:"Descarrega o jogo",s2t:"Depois de te juntares, abre o Google Play e instala o Wut?!.",openPlay:"Abrir no Google Play",w1:"Tens de usar o mesmo endereço de e-mail no Google Play e no grupo.",w2:"Se o Google Play disser que a app não está disponível, aguarda alguns minutos depois de te juntares."},
+ es:{title:"Wut?! – El quiz multijugador",desc:"El quiz multijugador para jugar con amigos. Crea una sala, invita a tus amigos y competid en tiempo real, incluso con chat de voz.",get:"Descargar la app",apple:"Descargar para Apple",android:"Descargar para Android",gTitle:"Instalar en Android",gIntro:"Wut?! está en fase de pruebas en Google Play. Solo hacen falta dos pasos.",s1:"Únete al grupo",join:"Unirse al grupo",cap:"Toca «{b}» junto al nombre del grupo.",openGroup:"Abrir el grupo",s2:"Descarga el juego",s2t:"Tras unirte, abre Google Play e instala Wut?!.",openPlay:"Abrir en Google Play",w1:"Debes usar el mismo correo electrónico en Google Play y en el grupo.",w2:"Si Google Play dice que la app no está disponible, espera unos minutos tras unirte."}
+};
+function pick(list){
+  for(var i=0;i<list.length;i++){
+    var l=String(list[i]||'').toLowerCase().slice(0,2);
+    if(T[l])return l;
+  }
+  return 'en';
+}
+var lang=pick(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language]);
+var t=T[lang];
+document.documentElement.lang=lang;
+document.title=t.title;
+document.querySelectorAll('[data-i]').forEach(function(e){e.textContent=t[e.getAttribute('data-i')]});
+document.getElementById('joinLbl').textContent=t.join;
+document.getElementById('cap').textContent=t.cap.replace('{b}',t.join);
+function route(){
+  var g=location.hash==='#android';
+  document.getElementById('home').classList.toggle('hidden',g);
+  document.getElementById('guide').classList.toggle('hidden',!g);
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+route();
+</script>
+</body>
+</html>
